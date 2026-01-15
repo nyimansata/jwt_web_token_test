@@ -1,13 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const UserRoute = require("./routes/users");
+const AuthRoute = require("./routes/auths");
 const app = express();
 
-// routes
-app.use("/api/v1/users", UserRoute);
+// middleware
+app.use(express.json());
 
-// port
+// routes
+app.use("/api/v1/auth", AuthRoute);
+
+// port and DB
 mongoose
   .connect(process.env.DB_URL, { dbName: "jwt_web_token" })
   .then(() => {
